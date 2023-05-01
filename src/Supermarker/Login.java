@@ -1,17 +1,21 @@
-package Supermarker;
+package Supermarker; // Aca importamos el paquete supermarker
 
-import javax.swing.*;
+import javax.swing.*; //importamos la biblioteca swing que nos da interfaces ya usuario ya hechas
+
+import java.awt.event.*;// importamos la biblioteca awt.event para los eventos de click en los botones
+
+public class Login extends JFrame implements ActionListener {// creamos la clase Supermarket que extienede de
+    // JFrame para la interfaz
+    // y ActionListener para los eventos
 
 
-import java.awt.event.*;
-
-public class Login extends JFrame implements ActionListener {
     // Componentes de la interfaz de usuario
-    JPanel panel;
-    JLabel userLabel, passwordLabel, messageLabel;
-    JTextField userTextField;
-    JPasswordField passwordField;
-    JButton loginButton;
+    JPanel panel; //Creamos el panel principal de la intefaz
+    JLabel userLabel, passwordLabel, messageLabel;//Aca creamos los labels
+    JTextField userTextField; //Aca creamos los campos de texto para las credenciales de usuraio
+    JPasswordField passwordField; //Y aca las credeciales de la contraseña
+    JButton loginButton; //Y aca el boton de login que acciona un evento si las credenciales de usuario son correctas, si no
+    //se dispara otro eveneto
 
     // Constructor
     public Login() {
@@ -21,7 +25,6 @@ public class Login extends JFrame implements ActionListener {
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        
 
         // Creación de componentes de la interfaz de usuario
         userLabel = new JLabel("User Name:");
@@ -60,21 +63,27 @@ public class Login extends JFrame implements ActionListener {
     }
 
     // ActionListener para el botón de inicio de sesión
-    public void actionPerformed(ActionEvent e) {
-        if (login(userTextField.getText(), new String(passwordField.getPassword()))) {
-            // Si las credenciales son correctas, mostrar la interfaz de usuario
-            JOptionPane.showMessageDialog(null, "Bienvenido al supermercado :DDDDDDD");
-            Supermarket supermarket = new Supermarket();
-            supermarket.setVisible(true);
-            setVisible(false);
-        } else {
-            // Si las credenciales son incorrectas, mostrar un mensaje de error
-            JOptionPane.showMessageDialog(null, "La contraseña o usuario son invalidos");
+    public void actionPerformed(ActionEvent event) {
+        try { //hacemos un try catch para manejar algun posible error
+            if (login(userTextField.getText(), new String(passwordField.getPassword()))) {
+                // Si las credenciales son correctas, mostrar la interfaz de usuario
+                JOptionPane.showMessageDialog(null, "Bienvenido al supermercado :DDDDDDD");
+                Supermarket supermarket = new Supermarket();
+                supermarket.setVisible(true);
+                setVisible(false);
+            } else {
+                // Si las credenciales son incorrectas, mostrar un mensaje de error
+                JOptionPane.showMessageDialog(null, "La contraseña o usuario son invalidos");
+            }
+            
+        } catch (Exception exception) {// aca manejamos el error
+           JOptionPane.showMessageDialog(null,"Ingrese el tipo de dato adecuado");
         }
+       
     }
 
     // Método principal
-    public static void main(String[] args) {
+    public static void main(String[] args) { //aqui la funcion main para ejecutar el programa
 
         Login loginGUI = new Login();
         loginGUI.setVisible(true);

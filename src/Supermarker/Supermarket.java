@@ -1,26 +1,32 @@
-package Supermarker;
+package Supermarker; //importamos el paquete Supermarker
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import javax.swing.*; //importamos la biblioteca swing que nos da interfaces ya usuario ya hechas
+import java.awt.*; //importamos la biblioteca awt para los paneles, campos de texto y bonotnes
+import java.awt.event.*;// importamos la biblioteca awt.event para los eventos de click en los botones
 
-public class Supermarket extends JFrame implements ActionListener {
+public class Supermarket extends JFrame implements ActionListener { // creamos la clase Supermarket que extienede de
+                                                                    // JFrame para la interfaz
+    // y ActionListener para los eventos
 
-    JLabel lblTitulo, lblProducto1, lblProducto2, lblProducto3, lblPrecio1, lblPrecio2, lblPrecio3, lblTotal;
-    JTextField txtCantidad1, txtCantidad2, txtCantidad3;
-    JButton btnAgregar1, btnQuitar1, btnAgregar2, btnQuitar2, btnAgregar3, btnQuitar3, btnPagar;
+    JLabel lblTitulo, lblProducto1, lblProducto2, lblProducto3, lblPrecio1, lblPrecio2, lblPrecio3, lblTotal;// creamos
+                                                                                                             // las
+                                                                                                             // labels
+    JTextField txtCantidad1, txtCantidad2, txtCantidad3; // En esta liena creamos los campos de texto
+    JButton btnAgregar1, btnQuitar1, btnAgregar2, btnQuitar2, btnAgregar3, btnQuitar3, btnPagar; // y en esta los
+                                                                                                 // botones
 
     int precio1 = 10;
     int precio2 = 15;
     int precio3 = 20;
     int cantidad1 = 0;
-    int cantidad2 = 0;
+    int cantidad2 = 0; // En estas lineas creamos las variables en donde se vam a guardar cada una de
+                       // las cantiadades, precios y totales
     int cantidad3 = 0;
     int total = 0;
 
-    public Supermarket() {
+    public Supermarket() { // creamos la funcion supermarket
 
-        super("Supermercado");
+        super("Supermercado"); // Aca colocamos el super ya que hereda de JFrame y de ActionListener
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -35,7 +41,7 @@ public class Supermarket extends JFrame implements ActionListener {
         add(lblTitulo);
         add(panelTitulo, BorderLayout.PAGE_START);
 
-        // Panel para los productos
+        // Aca creamos el panel para los productos
         JPanel panelProductos = new JPanel(new GridLayout(3, 4));
         lblProducto1 = new JLabel("Manzanas");
         panelProductos.add(lblProducto1);
@@ -81,7 +87,7 @@ public class Supermarket extends JFrame implements ActionListener {
 
         add(panelProductos, BorderLayout.CENTER);
 
-        // Panel para el total y botón de pagar
+        // Aca creamos el panel para el total y botón de pagar
         JPanel panelTotal = new JPanel(new FlowLayout(FlowLayout.CENTER));
         lblTotal = new JLabel("Total: $" + total);
         panelTotal.add(lblTotal);
@@ -92,34 +98,41 @@ public class Supermarket extends JFrame implements ActionListener {
         panelTotal.add(btnPagar);
         add(panelTotal, BorderLayout.SOUTH);
 
-        pack();
+        pack(); // Empaquetamos para que se ajuste tanto a lo que mejor queda, como a los
+                // cambios que le hicimos arriba
         setVisible(true);
     }
 
-    public void actionPerformed(ActionEvent e) {
-        Object source = e.getSource();
+    public void actionPerformed(ActionEvent event) { // creamos la funcion para los eventos del boton
+        Object source = event.getSource(); // Aqui generamos el evento
 
-        try {
-            // Agregar o quitar productos del Producto1
+        try { // Agregamos un try catch para el evento de los botones
+              // Agregar o quitar productos del Producto1
             if (source == btnAgregar1) {
                 cantidad1 += Integer.parseInt(txtCantidad1.getText());
             } else if (source == btnQuitar1) {
-                cantidad1 -= Integer.parseInt(txtCantidad1.getText());
+                if (cantidad1 > 0) {
+                    cantidad1 -= Integer.parseInt(txtCantidad1.getText());
+                }
             }
 
             // Agregar o quitar productos del Producto2
             if (source == btnAgregar2) {
                 cantidad2 += Integer.parseInt(txtCantidad2.getText());
             } else if (source == btnQuitar2) {
-                cantidad2 -= Integer.parseInt(txtCantidad2.getText());
+                if (cantidad2 > 0) {
+                    cantidad2 -= Integer.parseInt(txtCantidad2.getText());
+                }
             }
+            // Agregar o quitar productos del Producto3
             if (source == btnAgregar3) {
                 cantidad3 += Integer.parseInt(txtCantidad3.getText());
             } else if (source == btnQuitar3) {
-                cantidad3 -= Integer.parseInt(txtCantidad3.getText());
+                if (cantidad3 > 0) {
+                    cantidad3 -= Integer.parseInt(txtCantidad3.getText());
+                }
             }
 
-            // Actualizar el total
             // Actualizar el total
             total = (precio1 * cantidad1) + (precio2 * cantidad2) + (precio3 * cantidad3);
 
@@ -130,7 +143,7 @@ public class Supermarket extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Total a pagar: $" + total);
             }
 
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException exception) {
             JOptionPane.showMessageDialog(this, "Ingrese una cantidad válida");
         }
     }
