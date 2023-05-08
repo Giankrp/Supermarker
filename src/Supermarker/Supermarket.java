@@ -28,7 +28,7 @@ public class Supermarket extends JFrame implements ActionListener { // creamos l
 
         super("Supermercado"); // Aca colocamos el super ya que hereda de JFrame y de ActionListener
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setLocation(450, 270);
 
         // Panel para el título
         JPanel panelTitulo = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -135,6 +135,11 @@ public class Supermarket extends JFrame implements ActionListener { // creamos l
 
             // Actualizar el total
             total = (precio1 * cantidad1) + (precio2 * cantidad2) + (precio3 * cantidad3);
+            if (total < 0) {
+
+                throw new NumberFormatException();
+
+            }
 
             lblTotal.setText("Total: $" + total);
 
